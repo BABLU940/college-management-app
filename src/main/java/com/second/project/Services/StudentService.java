@@ -16,4 +16,20 @@ public class StudentService {
     public Student saveDetails(Student student){
         return studentRepo.save(student);
     }
+    public Student updateStudent(Student student){
+        Student updateDetails = studentRepo.findById(student.getStudentId()).orElse(null);
+        if(updateDetails != null){
+            updateDetails.setName(student.getName());
+            updateDetails.setMarks(student.getMarks());
+            studentRepo.save(updateDetails);
+            return (updateDetails);
+        }
+        return null;
+    }
+
+    public String deleteStudent(Integer studentId){
+        studentRepo.deleteById(studentId);
+        return "Record Delete";
+    }
+
 }
